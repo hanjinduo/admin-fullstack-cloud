@@ -2,8 +2,8 @@
   <div class="user-container">
     <div class="btn-box" style="margin: 10px 0;">
       <el-button type="primary" @click="openAddDialog">新增用户</el-button>
-      <el-button type="success" @click="exportExcel">导出Excel</el-button>
-      <el-button type="warning" @click="uploadExcel">导入Excel</el-button>
+      <!-- <el-button type="success" @click="exportExcel">导出Excel</el-button>
+      <el-button type="warning" @click="uploadExcel">导入Excel</el-button> -->
       <input ref="excelFileRef" type="file" accept=".xlsx,.xls" style="display: none" @change="handleImport">
     </div>
     <el-table :data="userList" border stripe style="width: 100%">
