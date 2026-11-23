@@ -6,13 +6,17 @@ on:
 jobs:
   deploy:
     runs-on: [self-hosted, local-vm]
-    timeout-minutes: 8
+    timeout-minutes: 15
     steps:
-      - name: 1. 拉取仓库最新代码
+      - name: 1. 拉取仓库最新代码（带重试）
         run: |
           cd /root/admin-fullstack-cloud
-          git fetch origin main
-          git reset --hard origin/main
+          for i in 1 2 3 4 5; do
+            if git fetch --depth=1 origin main; then break; fi
+            echo "第 $i 次拉取失败，5 秒后重试"
+            sleep 5
+          done
+          git reset --hard FETCH_HEAD
           echo "=== 当前部署版本 ==="
           git log -1 --oneline
       - name: 2. 检查后端 .env 是否存在
