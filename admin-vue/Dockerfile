@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # 第二阶段：Nginx 运行
-FROM nginx:stable-alpine
+FROM nginx:1.25-alpine
 COPY --from=builder /app/dist /usr/share/nginx/html/admin
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
